@@ -1,0 +1,41 @@
+//  Instalação do MagicMirror no RaspiBerry pi 4
+// Para começar vamos instalar a versão mais recenete do Node.Js 
+// Em seu terminal digite 
+
+sudo apt-get update
+
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+
+sudo apt install -y nodejs
+
+git clone https://github.com/MichMich/MagicMirror
+
+cd MagicMirror/
+
+npm install --only=prod --omit=dev
+
+cp config/config.js.sample config/config.js
+
+// inicie o MagicMirror
+
+npm run start
+
+// em seu terminal vamos instar o pm2 para sempre dar autostart no MagicMirror
+
+sudo npm install -g pm2
+
+pm2 startup
+
+// vamos criar um arquivo de inicialização
+
+cd ~
+
+nano mm.sh 
+
+// dentro do arquivo mm.sh copie e cole as seguintes linhas 
+
+#!/bin/bash
+cd /home/pi/MagicMirror/
+npm run start
+
+//logo em segui so escrever "sudo reboot" e reiniciar o raspberry
